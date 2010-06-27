@@ -15,6 +15,7 @@
 		public var friction:Number;
 		
 		public var ball:Ball;
+		public var balls:DLL;
 		public var magnets:DLL;
 		
 		public var magnetLayer:Sprite;
@@ -33,6 +34,7 @@
 			mouseDown = false;
 			friction = 0.99;
 			
+			balls = new DLL();
 			magnets = new DLL();
 			
 			magnetLayer = new Sprite();

@@ -5,6 +5,9 @@
 	import flash.events.*;
 	import flash.filters.GlowFilter;
 	
+	import Box2D.Collision.*;
+	import Box2D.Dynamics.*;
+	
 	/**
 	 * ...
 	 * @author scy
@@ -39,7 +42,9 @@
 			drawGrid();
 			addChild(mainLayer);
 			
-			g.ball = new Ball();
+			for (var i:int = 0; i < 300; i++) {
+				new Ball();
+			}
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
@@ -51,35 +56,44 @@
 		private function update(e:Event = null):void
 		{
 			if (!g.paused) {
-				if (g.mouseDown) {
+				/*if (g.mouseDown) {
 					//mainLayer.graphics.lineTo(stage.mouseX, stage.mouseY);
 					g.magnetLayer.addChild(new Magnet(stage.mouseX, stage.mouseY));
-				}
+				}*/
 				
 				// Updates
-				g.ball.update();
+				var aNode:DLLNode = g.balls.head();
+				var bNode:DLLNode = g.magnets.head();
 				
-				var aNode:DLLNode = g.magnets.head();
 				while (aNode != null) {
 					aNode.val.update();
 					aNode = aNode.next;
 				}
 				
+				while (bNode != null) {
+					bNode.val.update();
+					bNode = bNode.next;
+				}
+				
 				// Collisions
-				aNode = g.magnets.head();
-				while (aNode != null) {
-					if (g.ball.hitTestObject(aNode.val as Sprite)) {
-						var ang:Number = Math.atan2(aNode.val.y - g.ball.y, aNode.val.x - g.ball.x);
-						if(aNode.val.isPositive) {
-							g.ball.xVel += Math.cos(ang);
-							g.ball.yVel += Math.sin(ang);
+				bNode = g.magnets.head();
+				while (bNode != null) {
+					aNode = g.balls.head();
+					while(aNode!=null) {
+						if (aNode.val.hitTestObject(bNode.val as Sprite)) {
+							var ang:Number = Math.atan2(bNode.val.y - aNode.val.y, bNode.val.x - aNode.val.x);
+							if(bNode.val.isPositive) {
+								aNode.val.xVel += Math.cos(ang);
+								aNode.val.yVel += Math.sin(ang);
+							}
+							else {
+								aNode.val.xVel -= Math.cos(ang);
+								aNode.val.yVel -= Math.sin(ang);
+							}
 						}
-						else {
-							g.ball.xVel -= Math.cos(ang);
-							g.ball.yVel -= Math.sin(ang);
-						}
+						aNode = aNode.next;
 					}
-					aNode = aNode.next;
+					bNode = bNode.next;
 				}
 				
 				// Removal
@@ -124,8 +138,9 @@
 		private function mDown(me:MouseEvent):void
 		{
 			g.mouseDown = true;
-			mainLayer.graphics.lineStyle(40, 0xFF0000, 0.5);
-			mainLayer.graphics.moveTo(stage.mouseX, stage.mouseY);
+			g.magnetLayer.addChild(new Magnet(stage.mouseX, stage.mouseY));
+			//mainLayer.graphics.lineStyle(40, 0xFF0000, 0.5);
+			//mainLayer.graphics.moveTo(stage.mouseX, stage.mouseY);
 			//mainLayer.addChild(new Magnet(stage.mouseX, stage.mouseY));
 		}
 		

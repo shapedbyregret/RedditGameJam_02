@@ -38,6 +38,9 @@
 				col = 0x0000FF;
 				filters = [Main.g.blueFilter];
 				isPositive = false;
+				graphics.lineStyle(2, 0xFFFFFF, 1);
+				graphics.moveTo(-5, 0);
+				graphics.lineTo(5, 0);
 			}
 			else {
 				col = 0xFF0000;

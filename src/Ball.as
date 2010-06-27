@@ -13,13 +13,14 @@
 			xVel = 0;
 			yVel = 0;
 			
-			x = 100;
-			y = 100;
+			x = Math.random()*100;
+			y = Math.random()*100;
 			
 			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(0, 0, 6);
+			graphics.drawCircle(0, 0, 2);
 			graphics.endFill();
 			
+			Main.g.balls.append(this);
 			Main.g.ballLayer.addChild(this);
 		}
 		
