@@ -10,7 +10,9 @@ to the yellow goal on the far right of the screen.
 ** Controls **
 
 Mouse left click to place down positive (attractiing) magnet.
+
 Mouse left click while holding shift to place down negative (repelling) magnet.
+
 Move your mouse to the left and right edges of the screen to scroll.
 
 
@@ -27,6 +29,7 @@ Some stuff
 [Laconic font](http://www.fontsquirrel.com/fonts/laconic)
 
 [Polygonal Labs as3 data structure library](http://code.google.com/p/polygonal/wiki/DataStructures)
+
 
 **Developed With**
 
