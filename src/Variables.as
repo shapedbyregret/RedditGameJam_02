@@ -13,6 +13,8 @@
 		public var shiftPressed:Boolean;
 		public var mouseDown:Boolean;
 		public var friction:Number;
+		public var levelWidth:Number;
+		public var levelPosition:Number;
 		
 		public var ball:Ball;
 		public var balls:DLL;
@@ -32,7 +34,9 @@
 			paused = false;
 			shiftPressed = false;
 			mouseDown = false;
-			friction = 0.99;
+			friction = 0.85;
+			levelWidth = 2100;
+			levelPosition = 0;
 			
 			balls = new DLL();
 			magnets = new DLL();
